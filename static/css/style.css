@@ -1,0 +1,25 @@
+@import "materialize.css";
+
+html {
+    min-height: 100%;
+}
+
+nav {
+    background: #ffffff;
+}
+
+nav ul a {
+    color: #222222;
+}
+
+nav a {
+    color: #222222;
+}
+
+.card-rest {
+    min-height: 310px;
+}
+
+footer.page-footer {
+    background-color: #444;
+}

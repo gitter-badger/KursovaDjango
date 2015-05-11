@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/materialize.min.css' %}"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+</head>
+<body>
+<div class="navbar-fixed">
+
+    <ul id="dictionary" class="dropdown-content">
+        <li><a href="/dictionary/regions">Області</a></li>
+        <li><a href="/dictionary/distincts">Райони</a></li>
+        <li><a href="/dictionary/cities">Міста</a></li>
+        <li><a href="/dictionary/places">Місця</a></li>
+        <li><a href="/dictionary/owners">Власники</a></li>
+        <li><a href="/dictionary/marchents">Орендарі</a></li>
+    </ul>
+
+    <ul id = "user" class="dropdown-content">
+        <li><a href="/logout">Вихід</a></li>
+    </ul>
+    <nav>
+        <div class="nav-wrapper">
+            <a href="/" class="brand-logo">{% block meta %}Контейнера{% endblock %} </a>
+
+            <ul class="right hide-on-med-and-down">
+                <li><a class="dropdown-button" href="#!" data-activates="dictionary">Довідники<i
+                        class="mdi-navigation-arrow-drop-down right"></i></a></li>
+            </ul>
+
+            <ul class="right hide-on-med-and-down">
+                <li><a class="dropdown-button" href="#!" data-activates="user">Вітаємо {{ request.user.get_full_name }}<i
+                        class="mdi-navigation-arrow-drop-down right"></i></a></li>
+            </ul>
+
+        </div>
+    </nav>
+</div>
+
+
+<div class="container">
+    {% block content %}{% endblock %}
+</div>
+
+<div class="modal fade-in" id = "modal"></div>
+
+<script src="{% static 'js/jquery.js' %}"></script>
+<script src="{% static 'js/materialize.min.js' %}"></script>
+
+<script>
+    $(document).ready(function() {
+       $('select').material_select();
+    });
+</script>
+</body>
+</html>

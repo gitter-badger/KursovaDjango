@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {% if edit %}
+        {{ owner }}
+    {% else %}
+        Новий власник
+    {% endif %}
+{% endblock %}
+{% block meta %}
+    {% if edit %}
+        {{ owner }}
+    {% else %}
+        Новий власник
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <a href="/dictionary/owners">
+            <button class="btn red white-text"><i class="mdi-hardware-keyboard-arrow-left"></i></button>
+        </a>
+
+        <form action="/dictionary/owner{% if owner %}?action=update&id={{ owner.id }}{% else %}?action=save{% endif %}"
+              method="post">
+            {% csrf_token %}
+            {% if form %}
+                <table>
+                    {{ form }}
+                </table>
+            {% else %}
+                <table>
+                    <tbody>
+                    <tr>
+                        <th><label for="id_first_name">Ім`я:</label></th>
+                        <td><input id="id_first_name" maxlength="70" name="first_name" value="{{ owner.first_name }}"
+                                   type="text"></td>
+                    </tr>
+                    <tr>
+                        <th><label for="id_last_name">По-Батькові:</label></th>
+                        <td><input id="id_last_name" maxlength="70" name="last_name" value="{{ owner.last_name }}"
+                                   type="text"></td>
+                    </tr>
+                    <tr>
+                        <th><label for="id_sur_name">Прізвище:</label></th>
+                        <td><input id="id_sur_name" maxlength="70" name="sur_name" value="{{ owner.sur_name }}"
+                                   type="text"></td>
+                    </tr>
+                    <tr>
+                        <th><label for="id_telephone">Телефон:</label></th>
+                        <td><input id="id_telephone" maxlength="60" name="telephone" value="{{ owner.telephone }}"
+                                   type="text"></td>
+                    </tr>
+                    <tr>
+                        <th><label for="id_email">Email:</label></th>
+                        <td><input id="id_email" maxlength="150" name="email" value="{{ owner.email }}" type="email">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label for="id_city">Місто:</label></th>
+                        <td>
+                            <div class="select-wrapper">
+                                <select id="id_city" name="city" class="initialized">
+                                    <option value="" selected="selected">---------</option>
+                                    {% for city in cities %}
+                                        <option value="{{ city.id }}"
+                                                {% ifequal city owner.city %}selected="selected" {% endifequal %}>{{ city }}</option>
+                                    {% endfor %}
+                                </select></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label for="id_address">Адрес:</label></th>
+                        <td><input id="id_address" maxlength="150" name="address" value="{{ owner.address }}"
+                                   type="text"></td>
+                    </tr>
+                    <tr>
+                        <th><label for="id_description">Додаткова інформація:</label></th>
+                        <td><textarea cols="40" id="id_description" name="description"
+                                      rows="10">{{ owner.description }}</textarea></td>
+                    </tr>
+                    </tbody>
+                </table>
+            {% endif %}
+            <button class="btn green right"><i class="mdi-content-save"></i></button>
+        </form>
+    </div>
+{% endblock %}

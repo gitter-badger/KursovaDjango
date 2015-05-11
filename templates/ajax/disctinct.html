@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {% if distinct %}
+        {{ distinct }}
+    {% else %}
+        Новий район
+    {% endif %}
+{% endblock %}
+{% block meta %}
+    {% if distinct %}
+        {{ distinct }}
+    {% else %}
+        Новий район
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <a href="/dictionary/distincts">
+            <button class="btn red white-text"><i class="mdi-hardware-keyboard-arrow-left"></i></button>
+        </a>
+
+        <form action="/dictionary/distinct{% if distinct %}?action=update&id={{ distinct.id }}{% else %}?action=save{% endif %}" method="post">
+            {% csrf_token %}
+            {% if form %}
+
+                <table>
+                    {{ form }}
+                </table>
+            {% else %}
+                <table>
+                    <tr>
+                        <th><label for="id_name">Назва:</label></th>
+                        <td><input id="id_name" maxlength="70" name="name" value="{{ distinct.name }}" type="text"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th><label for="id_region">Регіон:</label></th>
+                        <td><select id="id_region" name="region">
+                            <option value="" selected="selected">---------</option>
+                            {% for region in regions %}
+                                <option value="{{ region.id }}"
+                                        {% ifequal region distinct.region %}selected {% endifequal %}>{{ region }}</option>
+                            {% endfor %}
+                        </select></td>
+                    </tr>
+                </table>
+            {% endif %}
+            <button class="btn green right"><i class="mdi-content-save"></i></button>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {% if edit %}
+        Редагування місця
+    {% else %}
+        Нове місце
+    {% endif %}
+{% endblock %}
+{% block meta %}
+    {% if edit %}
+        Редагування місця
+    {% else %}
+        Нове місце
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <a href="/dictionary/places">
+            <button class="btn red white-text"><i class="mdi-hardware-keyboard-arrow-left"></i></button>
+        </a>
+
+        <form action="/dictionary/place{% if edit %}?action=update{% else %}?action=save{% endif %}" method="post">
+            {% csrf_token %}
+            <table>
+                {{ form }}
+            </table>
+            <button class="btn green right"><i class="mdi-content-save"></i></button>
+        </form>
+    </div>
+{% endblock %}
