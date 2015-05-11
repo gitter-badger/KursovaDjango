@@ -40,7 +40,10 @@ def get_form(request, model=None, model_form=None, name=None, back=None, now=Non
             else:
                 return render_to_response('form.html', args)
 
-        return HttpResponseRedirect('/dictionary/' + back)
+        if args['model']:
+            return HttpResponseRedirect('/dictionary/' + now + '?action=edit&id='+str(args['model'].id))
+        else:
+            return HttpResponseRedirect('/dictionary/' + back)
 
     elif request.GET.get('action') == 'edit':
         args['model'] = model.objects.get(id=int(request.GET.get('id')))
