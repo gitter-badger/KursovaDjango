@@ -4,7 +4,7 @@ from django.db import models
 
 # Create your models here.
 class Region(models.Model):
-    name = models.CharField(max_length=70, verbose_name="Назва")
+    name = models.CharField(max_length=70, verbose_name="Назва", unique=True)
 
     def __unicode__(self):
         return self.name
@@ -14,7 +14,7 @@ class Region(models.Model):
 
 
 class Type(models.Model):
-    name = models.CharField(max_length=70, verbose_name="Назва")
+    name = models.CharField(max_length=70, verbose_name="Назва", unique=True)
 
     def __unicode__(self):
         return self.name
@@ -24,7 +24,7 @@ class Type(models.Model):
 
 
 class Distinct(models.Model):
-    name = models.CharField(max_length=70, verbose_name="Назва")
+    name = models.CharField(max_length=70, verbose_name="Назва", unique=True)
     region = models.ForeignKey(Region, verbose_name="Регіон")
 
     def __unicode__(self):
@@ -36,7 +36,7 @@ class Distinct(models.Model):
 
 
 class City(models.Model):
-    name = models.CharField(max_length=70, verbose_name="Назва")
+    name = models.CharField(max_length=70, verbose_name="Назва", unique=True)
     distinct = models.ForeignKey(Distinct, verbose_name='Район')
 
     def __unicode__(self):
@@ -47,7 +47,7 @@ class City(models.Model):
 
 
 class Place(models.Model):
-    name = models.CharField(max_length=70, verbose_name="Назва")
+    name = models.CharField(max_length=70, verbose_name="Назва", unique=True)
     city = models.ForeignKey(City, verbose_name='Місто')
 
     def __unicode__(self):
@@ -61,8 +61,10 @@ class Marchent(models.Model):
     first_name = models.CharField(max_length=70, verbose_name="Ім`я")
     last_name = models.CharField(max_length=70, verbose_name='По-Батькові')
     sur_name = models.CharField(max_length=70, verbose_name='Прізвище')
-    telephone = models.CharField(max_length=60, verbose_name='Телефон')
-    email = models.EmailField(max_length=150, verbose_name='Email')
+    pass_code = models.CharField(max_length=20, verbose_name='Код паспорта')
+    birth_day = models.DateField(verbose_name='Дата народження')
+    telephone = models.CharField(max_length=60, verbose_name='Телефон', unique=True)
+    email = models.EmailField(max_length=150, verbose_name='Email', unique=True)
     city = models.ForeignKey(City, verbose_name='Місто')
     address = models.CharField(max_length=150, verbose_name='Адрес')
     description = models.TextField(verbose_name='Додаткова інформація', blank=True)
@@ -78,8 +80,10 @@ class Owner(models.Model):
     first_name = models.CharField(max_length=70, verbose_name="Ім`я")
     last_name = models.CharField(max_length=70, verbose_name='По-Батькові')
     sur_name = models.CharField(max_length=70, verbose_name='Прізвище')
-    telephone = models.CharField(max_length=60, verbose_name='Телефон')
-    email = models.EmailField(max_length=150, verbose_name='Email')
+    pass_code = models.CharField(max_length=20, verbose_name='Код паспорта')
+    birth_day = models.DateField(verbose_name='Дата народження')
+    telephone = models.CharField(max_length=60, verbose_name='Телефон', unique=True)
+    email = models.EmailField(max_length=150, verbose_name='Email', unique=True)
     city = models.ForeignKey(City, verbose_name='Місто')
     address = models.CharField(max_length=150, verbose_name='Адрес')
     description = models.TextField(verbose_name='Додаткова інформація', blank=True)
@@ -92,14 +96,14 @@ class Owner(models.Model):
 
 
 class Container(models.Model):
-    name = models.CharField(max_length=100, verbose_name='Назва')
+    name = models.CharField(max_length=100, verbose_name='Назва', unique=True)
     type = models.ForeignKey(Type, verbose_name='Тип')
     weight = models.IntegerField(verbose_name='Тоннаж')
     row = models.IntegerField(verbose_name='Ряд')
     place = models.ForeignKey(Place, verbose_name='Місце')
     marchent = models.ForeignKey(Marchent, verbose_name='Орендарь')
-    rent = models.CharField(max_length=255, verbose_name='Оренда')
     owner = models.ForeignKey(Owner, verbose_name='Власник')
+    rent = models.CharField(max_length=255, verbose_name='Оренда')
     contract_begin = models.DateField(verbose_name='Початок оренди')
     contract_end = models.DateField(verbose_name='Кінець оренди')
     description = models.TextField(verbose_name='Додаткова інформація', blank=True)

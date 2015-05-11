@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
-{% block meta %}Області{% endblock %}
-{% block title %}Області{% endblock %}
+{% block meta %}Типи{% endblock %}
+{% block title %}Типи{% endblock %}
 
 {% block content %}
     <div class="row">
@@ -12,7 +12,7 @@
                         <td>#</td>
                         <td>Назва</td>
                         <td></td>
-                        <td> <a href = '/dictionary/region?action=add'><button class="btn red circle"><i class="mdi-content-add"></i></button></a></td>
+                        <td> <a href = '/dictionary/type?action=add'><button class="btn red circle"><i class="mdi-content-add"></i></button></a></td>
                     </tr>
                 </thead>
                <tbody>
@@ -20,8 +20,8 @@
                     <tr>
                         <td>{{ item.id }}</td>
                         <td>{{ item.name }}</td>
-                        <td><a href="/dictionary/region?action=edit&id={{ item.id }}"><button class="btn-flat"><i class="mdi-image-edit"></i></button></a></td>
-                        <td><a href="/dictionary/region?action=remove&id={{ item.id }}"><button class="btn-flat"><i class="mdi-content-remove-circle"></i></button></a></td>
+                        <td><a href="/dictionary/type?action=edit&id={{ item.id }}"><button class="btn-flat"><i class="mdi-image-edit"></i></button></a></td>
+                        <td><a href="/dictionary/type?action=remove&id={{ item.id }}"><button class="btn-flat"><i class="mdi-content-remove-circle"></i></button></a></td>
                     </tr>
                 {% endfor %}
                </tbody>

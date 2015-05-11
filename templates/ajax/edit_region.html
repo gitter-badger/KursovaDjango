@@ -1,9 +1,0 @@
-<form action="/dictionary/region?action=update&id={{ region.id }}" method="post">
-    {% csrf_token %}
-
-    <div>
-        <label>Назва</label>
-        <input type="text" name="name" required="" value="{{ region.name }}">
-        <button class="btn right"><i class="mdi-content-save"></i></button>
-    </div>
-</form>
