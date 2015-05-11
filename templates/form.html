@@ -29,8 +29,16 @@
     </div>
 
     <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-        <button type="submit" form="fm" class="btn-floating btn-large blue-grey">
+        <button type="submit" form="fm" class="btn-floating btn-large blue-grey tooltiped" data-position="bottom" data-delay="50" data-tooltip="Зберегти">
             <i class="large mdi-content-save"></i>
         </button>
     </div>
+
+    {% if messages %}
+        <script>
+            {% for message in messages %}
+                Materialize.toast("{{ message }}", 2000, 'error');
+            {% endfor %}
+        </script>
+    {% endif %}
 {% endblock %}

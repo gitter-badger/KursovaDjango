@@ -1,8 +1,9 @@
 # coding: utf-8
 from django.contrib.auth.decorators import login_required
 from django.core.context_processors import csrf
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, RequestContext
 from django.http import HttpResponseRedirect
+from django.contrib import messages
 
 
 @login_required(login_url='/login')
@@ -32,13 +33,14 @@ def get_form(request, model=None, model_form=None, name=None, back=None, now=Non
             if request.GET.get('id'):
                 args['model'] = model.objects.get(id=int(request.GET.get('id')))
                 args['form'] = model_form(data=request.POST, instance=args['model'])
+                messages.success(request, str(args['model']) + ' оновлено')
             else:
                 args['form'] = model_form(request.POST)
 
             if args['form'].is_valid():
                 args['form'].save()
             else:
-                return render_to_response('form.html', args)
+                return render_to_response('form.html', args, context_instance=RequestContext(request))
 
         if args['model']:
             return HttpResponseRedirect('/dictionary/' + now + '?action=edit&id='+str(args['model'].id))
@@ -48,7 +50,7 @@ def get_form(request, model=None, model_form=None, name=None, back=None, now=Non
     elif request.GET.get('action') == 'edit':
         args['model'] = model.objects.get(id=int(request.GET.get('id')))
         args['form'] = model_form(instance=args['model'])
-        return render_to_response('form.html', args)
+        return render_to_response('form.html', args, context_instance=RequestContext(request))
 
     elif request.GET.get('action') == 'remove':
         model.objects.get(id=int(request.GET.get('id'))).delete()

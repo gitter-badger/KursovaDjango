@@ -6,6 +6,9 @@
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/materialize.min.css' %}"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/materialize.min.js' %}"></script>
 </head>
 <body>
 <div class="navbar-fixed">
@@ -48,10 +51,6 @@
 </div>
 
 <div class="modal fade-in" id="modal"></div>
-
-<script src="{% static 'js/jquery.js' %}"></script>
-<script src="{% static 'js/materialize.min.js' %}"></script>
-
 <script>
     $(document).ready(function () {
         $('select').material_select();
@@ -62,6 +61,7 @@
         selectYears: 15 // Creates a dropdown of 15 years to control year
     });
 
+    $('.tooltipped').tooltip({delay: 50});
 </script>
 </body>
 </html>
