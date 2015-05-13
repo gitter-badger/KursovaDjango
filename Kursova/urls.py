@@ -64,7 +64,8 @@ urlpatterns = patterns('',
                            {'model': Container, 'name': 'Новий контейнер', 'model_form': ContainerForm, 'back': '../',
                             'now': 'container'}),
 
-                       url(r'^export/(?P<type>\w+)/containers', 'app.dictionary.export',
-                           {'model': Container, 'name': 'containers'}),
+                       url(r'^export/(?P<type>\w+)', 'app.dictionary.export'),
+                       url(r'^info/owner/(?P<id>\d+)', 'app.dictionary.info', {'model': Owner}),
+                       url(r'^info/marchent/(?P<id>\d+)', 'app.dictionary.info', {'model': Marchent}),
                        url(r'^admin/', include(admin.site.urls)),
                        )

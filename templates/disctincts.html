@@ -8,35 +8,43 @@
         <div class="col s12">
             <table class="responsive-table hoverable striped">
                 <thead>
-                    <tr>
-                        <td>#</td>
-                        <td>Назва</td>
-                        <td>Область</td>
-                        <td></td>
-                        <td> <button class="btn red circle" onclick="add_form()"><i class="mdi-content-add"></i></button></td>
-                    </tr>
+                <tr>
+                    <td>#</td>
+                    <td>Назва</td>
+                    <td>Область</td>
+                    <td>
+                    </td>
+                    <td>
+                        <button class="btn red circle" onclick="add_form()"><i class="mdi-content-add"></i></button>
+                    </td>
+                </tr>
                 </thead>
-               <tbody>
+                <tbody>
                 {% for item in list %}
                     <tr>
                         <td>{{ item.id }}</td>
                         <td>{{ item.name }}</td>
                         <td>{{ item.region.name }}</td>
-                        <td><button class="btn-flat" onclick="edit_form({{ item.id }})"><i class="mdi-image-edit"></i></button></td>
-                        <td><a href="/dictionary/distinct?action=remove&id={{ item.id }}"><button class="btn-flat"><i class="mdi-content-remove-circle"></i></button></a></td>
+                        <td>
+                            <button class="btn-flat" onclick="edit_form({{ item.id }})"><i class="mdi-image-edit"></i>
+                            </button>
+                        </td>
+                        <td><a href="/dictionary/distinct?action=remove&id={{ item.id }}">
+                            <button class="btn-flat"><i class="mdi-content-remove-circle"></i></button>
+                        </a></td>
                     </tr>
                 {% endfor %}
-               </tbody>
+                </tbody>
             </table>
         </div>
     </div>
 
     <script>
         function edit_form(id) {
-           location.href = '/dictionary/distinct?action=edit&id='+id;
+            location.href = '/dictionary/distinct?action=edit&id=' + id;
         }
 
-    function add_form() {
+        function add_form() {
             location.href = '/dictionary/distinct?action=add'
         }
     </script>

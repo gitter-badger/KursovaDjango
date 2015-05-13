@@ -8,38 +8,66 @@
         <div class="col s12">
             <table class="responsive-table hoverable striped">
                 <thead>
-                    <tr>
-                        <td>#</td>
-                        <td>Власник</td>
-                        <td>Email</td>
-                        <td>Місто</td>
-                        <td></td>
-                        <td> <button class="btn red circle" onclick="add_form()"><i class="mdi-content-add"></i></button></td>
-                    </tr>
+                <tr>
+                    <td>#</td>
+                    <td>Власник</td>
+                    <td>Email</td>
+                    <td>Місто</td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <button class="btn red circle" onclick="add_form()"><i class="mdi-content-add"></i></button>
+                    </td>
+                </tr>
                 </thead>
-               <tbody>
+                <tbody>
                 {% for item in list %}
                     <tr>
                         <td>{{ item.id }}</td>
                         <td>{{ item }}</td>
                         <td>{{ item.email }}</td>
                         <td>{{ item.city.name }}</td>
-                        <td><button class="btn-flat" onclick="edit_form({{ item.id }})"><i class="mdi-image-edit"></i></button></td>
-                        <td><a href="/dictionary/owner?action=remove&id={{ item.id }}"><button class="btn-flat"><i class="mdi-content-remove-circle"></i></button></a></td>
+                        <td>
+                            <button class="btn-flat" onclick="edit_form({{ item.id }})"><i class="mdi-image-edit"></i>
+                            </button>
+                        </td>
+                        <td>
+                            <button class="btn-flat" onclick="show_info({{ item.id }})"><i
+                                    class="mdi-image-remove-red-eye"></i></button>
+                        </td>
+                        <td><a href="/dictionary/owner?action=remove&id={{ item.id }}">
+                            <button class="btn-flat"><i class="mdi-content-remove-circle"></i></button>
+                        </a></td>
                     </tr>
                 {% endfor %}
-               </tbody>
+                </tbody>
             </table>
         </div>
     </div>
 
+    <div id="modal" class="modal">
+        <div class="modal-content">
+
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat" onclick="$('#modal').closeModal();">Закрити</a>
+        </div>
+    </div>
     <script>
         function edit_form(id) {
-           location.href = '/dictionary/owner?action=edit&id='+id;
+            location.href = '/dictionary/owner?action=edit&id=' + id;
         }
 
-    function add_form() {
+        function add_form() {
             location.href = '/dictionary/owner?action=add'
-    }
+        }
+
+        function show_info(id) {
+            $.get('/info/owner/' + id, {}, function (d) {
+                $("#modal .modal-content").html(d);
+                $("#modal").openModal();
+            });
+        }
+
     </script>
 {% endblock %}

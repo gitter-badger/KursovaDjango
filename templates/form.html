@@ -7,20 +7,20 @@
         {{ name }}
     {% endif %}
 {% endblock %}
+
 {% block meta %}
     {% if model %}
-        {{ model }}
+         {{ model }}
     {% else %}
         {{ name }}
     {% endif %}
 {% endblock %}
 
+{% block url %}
+    /dictionary/{{ back }}
+{% endblock %}
 {% block content %}
     <div class="row">
-        <a href="/dictionary/{{ back }}">
-            <button class="btn-floating red white-text"><i class="mdi-hardware-keyboard-arrow-left"></i></button>
-        </a>
-
         <form id='fm' action="/dictionary/{{ now }}{% if model %}?action=save&id={{ model.id }}{% else %}?action=save{% endif %}"
               method="post" enctype="multipart/form-data">
             {% csrf_token %}
@@ -29,7 +29,8 @@
     </div>
 
     <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
-        <button type="submit" form="fm" class="btn-floating btn-large blue-grey tooltiped" data-position="bottom" data-delay="50" data-tooltip="Зберегти">
+        <button type="submit" form="fm" class="btn-floating btn-large blue-grey tooltiped" data-position="bottom"
+                data-delay="50" data-tooltip="Зберегти">
             <i class="large mdi-content-save"></i>
         </button>
     </div>

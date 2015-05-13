@@ -13,6 +13,13 @@ class Region(models.Model):
         ordering = ['-id']
 
 
+class Sex(models.Model):
+    name = models.CharField(max_length=30, unique=True)
+
+    def __unicode__(self):
+        return self.name
+
+
 class Type(models.Model):
     name = models.CharField(max_length=70, verbose_name="Назва", unique=True)
 
@@ -63,6 +70,7 @@ class Marchent(models.Model):
     sur_name = models.CharField(max_length=70, verbose_name='Прізвище')
     pass_code = models.CharField(max_length=20, verbose_name='Код паспорта')
     birth_day = models.DateField(verbose_name='Дата народження')
+    sex = models.ForeignKey(Sex, verbose_name='Стать', default=1)
     telephone = models.CharField(max_length=60, verbose_name='Телефон', unique=True)
     email = models.EmailField(max_length=150, verbose_name='Email', unique=True)
     city = models.ForeignKey(City, verbose_name='Місто')
@@ -81,6 +89,7 @@ class Owner(models.Model):
     last_name = models.CharField(max_length=70, verbose_name='По-Батькові')
     sur_name = models.CharField(max_length=70, verbose_name='Прізвище')
     pass_code = models.CharField(max_length=20, verbose_name='Код паспорта')
+    sex = models.ForeignKey(Sex, verbose_name='Стать', default=1)
     birth_day = models.DateField(verbose_name='Дата народження')
     telephone = models.CharField(max_length=60, verbose_name='Телефон', unique=True)
     email = models.EmailField(max_length=150, verbose_name='Email', unique=True)
@@ -101,7 +110,7 @@ class Container(models.Model):
     weight = models.IntegerField(verbose_name='Тоннаж')
     row = models.IntegerField(verbose_name='Ряд')
     col = models.IntegerField(verbose_name='Місце')
-    place = models.ForeignKey(Place, verbose_name='Ринок')
+    place = models.ForeignKey(Place, verbose_name='Розташування')
     marchent = models.ForeignKey(Marchent, verbose_name='Орендарь')
     owner = models.ForeignKey(Owner, verbose_name='Власник')
     rent = models.CharField(max_length=255, verbose_name='Оренда')
