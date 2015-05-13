@@ -8,19 +8,28 @@
         <div class="col s12">
             <table class="responsive-table">
                 <thead>
-                    <tr>
-                        <td>#</td>
-                        <td>Контейнер</td>
-                        <td>Власник</td>
-                        <td>Орендар</td>
-                        <td>Місце</td>
-                        <td>Початок оренди</td>
-                        <td>Кінець оренди</td>
-                        <td></td>
-                        <td> <button class="btn red circle" onclick="add_form()"><i class="mdi-content-add"></i></button></td>
-                    </tr>
+                <tr>
+                    <td>#</td>
+                    <td>Контейнер</td>
+                    <td>Власник</td>
+                    <td>Орендар</td>
+                    <td>Місце</td>
+                    <td>Початок оренди</td>
+                    <td>Кінець оренди</td>
+                    <td>
+                        <ul id="dropdown2" class="dropdown-content">
+                            <li><a href="/export/xml/containers">XML</a></li>
+                            <li><a href="/export/json/containers">JSON</a></li>
+                        </ul>
+                        <a class="btn dropdown-button" href="#!" data-activates="dropdown2">Експорт<i
+                                class="mdi-navigation-arrow-drop-down right"></i></a>
+                    </td>
+                    <td>
+                        <button class="btn red circle" onclick="add_form()"><i class="mdi-content-add"></i></button>
+                    </td>
+                </tr>
                 </thead>
-               <tbody>
+                <tbody>
                 {% for item in list %}
                     <tr>
                         <td>{{ item.id }}</td>
@@ -30,22 +39,27 @@
                         <td>{{ item.place.name }}</td>
                         <td>{{ item.contract_begin }}</td>
                         <td>{{ item.contract_end }}</td>
-                        <td><button class="btn-flat" onclick="edit_form({{ item.id }})"><i class="mdi-image-edit"></i></button></td>
-                        <td><a href="/dictionary/container?action=remove&id={{ item.id }}"><button class="btn-flat"><i class="mdi-content-remove-circle"></i></button></a></td>
+                        <td>
+                            <button class="btn-flat" onclick="edit_form({{ item.id }})"><i class="mdi-image-edit"></i>
+                            </button>
+                        </td>
+                        <td><a href="/dictionary/container?action=remove&id={{ item.id }}">
+                            <button class="btn-flat"><i class="mdi-content-remove-circle"></i></button>
+                        </a></td>
                     </tr>
                 {% endfor %}
-               </tbody>
+                </tbody>
             </table>
         </div>
     </div>
 
     <script>
         function edit_form(id) {
-           location.href = '/dictionary/container?action=edit&id='+id;
+            location.href = '/dictionary/container?action=edit&id=' + id;
         }
 
-    function add_form() {
+        function add_form() {
             location.href = '/dictionary/container?action=add'
-    }
+        }
     </script>
 {% endblock %}
